@@ -9,6 +9,24 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ONT and Illumina sequencing data generated from this study is deposited at National Microbiology Data Center (https://nmdc.cn/) with accession number of NMDC10017965.
 
 
+##SOFTWARE
+
+MetaWRAP 1.2
+Guppy v.3.3.0
+minimap2 v2.17-r941
+Canu 1.7 
+Flye 2.8.1-b1676
+OPERA-MS
+Spades
+fastANI
+MUM&Co v2.4.2
+IGV 2.6.2
+Prokka 1.13
+emapper.py 1.0.3
+
+
+
+
 ## Structure of this repository
 
 
