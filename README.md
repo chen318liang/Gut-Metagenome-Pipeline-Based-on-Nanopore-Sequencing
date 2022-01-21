@@ -51,11 +51,15 @@ CD-hit v4.7
 
 MAFFT v7.450
 
+CAT
+
 IQTREE2
 
 iTOL v5
 
 CRSPRDetect v2.4
+
+blast v2.6.0
 
 Tombo v1.5.1
 
