@@ -21,11 +21,11 @@ Canu 1.7
 
 Flye 2.8.1-b1676
 
-OPERA-MS
+OPERA-MS v0.9.0
 
 Spades v3.13.0
 
-fastANI
+fastANI 1.32
 
 MUM&Co v2.4.2
 
@@ -35,7 +35,7 @@ Prokka 1.13
 
 emapper.py 1.0.3
 
-seqkit
+seqkit v0.10.2
 
 dRep v2.6.2
 
@@ -43,7 +43,27 @@ gtdbtk 1.3.0
 
 RNammer -1.2
 
-samtools
+samtools 0.13.0
+
+ProphageHunter
+
+CD-hit v4.7
+
+MAFF v7.450
+
+IQTREE2
+
+iTOL v5
+
+CRSPRDetect v2.4
+
+Tombo v1.5.1
+
+Nanopolish v0.11.1
+
+mCaller v0.3
+
+Nanodisco v1.0.0
 
 
 
