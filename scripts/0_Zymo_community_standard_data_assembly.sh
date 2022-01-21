@@ -87,7 +87,6 @@ source activate metawrap
 
 ##for canu assembly
 for i in ${s[@]};do
-##序列文件必须以fastq结尾
 metawrap binning -o canu_assembly/${i}-BB-SN_binning -t 40 -a canu_assembly/${i}_canu_assembly/genome.60m.contigs.fasta \
   --metabat2 --maxbin2 --concoct --single-end ${nanodatadir}/${i}-BB-SN.fastq
 
@@ -101,7 +100,6 @@ done
 
 ##for flye assembly
 for i in ${s[@]};do
-##序列文件必须以fastq结尾
 metawrap binning -o flye_assembly/${i}-BB-SN_binning -t 40 -a flye_assembly/${i}_flye_assembly/scaffolds.fasta \
   --metabat2 --maxbin2 --concoct --single-end ${nanodatadir}/${i}-BB-SN.fastq
 
@@ -115,7 +113,6 @@ done
 
 ##for hybrid assembly using MetaSPAdes 
 for i in ${s[@]};do
-##序列文件必须以fastq结尾
 metawrap binning -o spades_hybird_assembly/${i}-BB-SN_binning -t 60 -a spades_hybird_assembly/${i}_spades_hybird_assembly/scaffolds.fasta \
   --metabat2 --maxbin2 --concoct --single-end ${nanodatadir}/${i}.NGS.nano.fastq
 
@@ -129,7 +126,6 @@ done
 
 ##for only Illumina reads assembly using MetaSPAdes
 for i in ${s[@]};do
-##序列文件必须以fastq结尾
 metawrap binning -o spades_NGS_assembly/${i}-BB-SN_binning -t 60 -a spades_NGS_assembly/${i}_spades_NGS_assembly/scaffolds.fasta \
   --metabat2 --maxbin2 --concoct --single-end ${nanodatadir}/${i}.NGS.nano.fastq
 
@@ -162,8 +158,6 @@ source activate metawrap
 for i in $(ls canu_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/*fa); do
   sample=`echo ${i} |cut -d'/' -f5 | sed 's/.fa//'`
   mkdir canu_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/
-  # Contig ID must <= 37 chars long: NODE_1985_length_11174_cov_1041.208202
-  # fasta修改序列名字
   awk '{if(/>/){print substr($1,1,37)}else{print $0}}' ${i} >canu_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/${sample}.fa
   #prodigal -i hybird_temp/prodigal/${sample}_contig.fa -c -m -g 11 -p meta -f sco -q -a hybird_temp/prodigal/${sample} -d hybird_temp/prodigal/${sample} -o hybird_temp/prodigal/${sample}
   time prokka canu_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/${sample}.fa --outdir canu_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/${sample} \
@@ -178,8 +172,7 @@ done
 for i in $(ls flye_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_5_bins/*fa); do
   sample=`echo ${i} |cut -d'/' -f5 | sed 's/.fa//'`
   mkdir flye_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_5_bins/prokka/
-  # Contig ID must <= 37 chars long: NODE_1985_length_11174_cov_1041.208202
-  # fasta修改序列名字
+
   awk '{if(/>/){print substr($1,1,37)}else{print $0}}' ${i} >flye_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_5_bins/prokka/${sample}.fa
   #prodigal -i hybird_temp/prodigal/${sample}_contig.fa -c -m -g 11 -p meta -f sco -q -a hybird_temp/prodigal/${sample} -d hybird_temp/prodigal/${sample} -o hybird_temp/prodigal/${sample}
   time prokka flye_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_5_bins/prokka/${sample}.fa --outdir flye_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_5_bins/prokka/${sample} \
@@ -194,8 +187,7 @@ done
 for i in $(ls spades_hybird_assembly/Zymo-GridION-EVEN-BB-SN_NGS_binning/bin_refinement/metawrap_70_10_bins/*fa); do
   sample=`echo ${i} |cut -d'/' -f5 | sed 's/.fa//'`
   mkdir spades_hybird_assembly/Zymo-GridION-EVEN-BB-SN_NGS_binning/bin_refinement/metawrap_70_10_bins/prokka/
-  # Contig ID must <= 37 chars long: NODE_1985_length_11174_cov_1041.208202
-  # fasta修改序列名字
+
   awk '{if(/>/){print substr($1,1,37)}else{print $0}}' ${i} >spades_hybird_assembly/Zymo-GridION-EVEN-BB-SN_NGS_binning/bin_refinement/metawrap_70_10_bins/prokka/${sample}.fa
   #prodigal -i hybird_temp/prodigal/${sample}_contig.fa -c -m -g 11 -p meta -f sco -q -a hybird_temp/prodigal/${sample} -d hybird_temp/prodigal/${sample} -o hybird_temp/prodigal/${sample}
   time prokka spades_hybird_assembly/Zymo-GridION-EVEN-BB-SN_NGS_binning/bin_refinement/metawrap_70_10_bins/prokka/${sample}.fa --outdir spades_hybird_assembly/Zymo-GridION-EVEN-BB-SN_NGS_binning/bin_refinement/metawrap_70_10_bins/prokka/${sample} \
@@ -210,8 +202,7 @@ done
 for i in $(ls spades_NGS_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/*fa); do
   sample=`echo ${i} |cut -d'/' -f5 | sed 's/.fa//'`
   mkdir spades_NGS_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/
-  # Contig ID must <= 37 chars long: NODE_1985_length_11174_cov_1041.208202
-  # fasta修改序列名字
+
   awk '{if(/>/){print substr($1,1,37)}else{print $0}}' ${i} >spades_NGS_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/${sample}.fa
   #prodigal -i hybird_temp/prodigal/${sample}_contig.fa -c -m -g 11 -p meta -f sco -q -a hybird_temp/prodigal/${sample} -d hybird_temp/prodigal/${sample} -o hybird_temp/prodigal/${sample}
   time prokka spades_NGS_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/${sample}.fa --outdir spades_NGS_assembly/Zymo-GridION-EVEN-BB-SN_binning_NGS/bin_refinement/metawrap_70_10_bins/prokka/${sample} \
