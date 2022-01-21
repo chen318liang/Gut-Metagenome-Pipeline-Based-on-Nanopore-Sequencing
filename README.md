@@ -49,7 +49,7 @@ ProphageHunter
 
 CD-hit v4.7
 
-MAFF v7.450
+MAFFT v7.450
 
 IQTREE2
 
