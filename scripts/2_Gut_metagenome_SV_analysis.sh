@@ -239,8 +239,6 @@ source activate metawrap1.2
 for i in $(find hybird_temp/drep/hybird/MUMandCo/*/*/ -name "*.*.fa");do
   type=`echo ${i} | cut -d'/' -f7| sed 's/.fa//' `
   dir=`echo ${i} |sed "s/${type}.fa//"`
-  # Contig ID must <= 37 chars long: NODE_1985_length_11174_cov_1041.208202
-  # fasta修改序列名字
   awk 'BEGIN{i=0 ; FS="," ; OFS=","}{ if(/>/){gsub($1,">"++i,$1);print $0}else{print $0}}' ${i} >${dir}/revised.${type}.fa.tem
   prokka ${dir}/revised.${type}.fa.tem --outdir ${dir}/${type} \
   --prefix ${type} --metagenome --kingdom Archaea,Bacteria,Mitochondria,Viruses \
@@ -254,18 +252,16 @@ s=(query.insertion ref.deletion ref.inversion)
 OUTPUT_DIR="hybird_temp/drep/hybird/MUMandCo"
 for j in ${s[@]};do
   mkdir ${OUTPUT_DIR}/../${j}_eggnog
-  ## 基因注释eggNOG/COG/KEGG/GO
   db="/software/database/"
   time emapper.py -m diamond --no_annot --usemem --no_file_comments --data_dir ${db}/eggnog \
     --cpu 40 -i ${OUTPUT_DIR}/../MUMandCo.morethan10.${j}.faa -o ${OUTPUT_DIR}/../${j}_eggnog/protein --override
-  # 比对结果功能注释
+
   time emapper.py --annotate_hits_table ${OUTPUT_DIR}/../${j}_eggnog/protein.emapper.seed_orthologs --no_file_comments \
           -o ${OUTPUT_DIR}/../${j}_eggnog/output --cpu 40 --data_dir ${db}/eggnog --override
 
   sed '1 i Name\teggNOG\tEvalue\tScore\tGeneName\tGO\tKO\tBiGG\tTax\tOG\tBestOG\tCOG\tAnnotation' \
     ${OUTPUT_DIR}/../${j}_eggnog/output.emapper.annotations > ${OUTPUT_DIR}/../${j}_eggnog/output
 
-  # 提取基因KO表
   cut -f 1,7 ${OUTPUT_DIR}/../${j}_eggnog/output |cut -f 1 -d ',' > ${OUTPUT_DIR}/../${j}_eggnog/2ko.list
   awk 'NR==FNR{a[$1]=$2;next}{print $0"\t"a[$4]}' ${OUTPUT_DIR}/../${j}_eggnog/2ko.list ${OUTPUT_DIR}/../MUMandCo.morethan10.${j}.sample2proteinseq.txt \
    |grep -v -P '^\t' |grep -v -P '\t$' >${OUTPUT_DIR}/../${j}_eggnog/2ko.filter.list
@@ -293,7 +289,7 @@ cat /data/nano_meta_ref/hybird_temp/drep/hybird/ALL_hybird_more_than_10_samplesC
     tax=`sed '1d' hybird_temp/drep/hybird/data_tables/Widb.csv |awk -v var="${arr[0]}" 'BEGIN {FS=","} ($8==var) {print $1}'`
     ref=`cat /data/nano_meta_ref/hybird_temp/drep/hybird/hybird_more_than_10_samples.Cdb.txt | grep ${arr[$i]}_ |grep ${arr[0]} |cut -d',' -f1`
     query=`cat /data/nano_meta_ref/hybird_temp/drep/hybird/hybird_more_than_10_samples.Cdb.txt | grep ${arr[$i+1]}_ |grep ${arr[0]} |cut -d',' -f1`
-    ##MUMandCo输出结果不支持含有路径，故进入相应文件夹运行再退出
+
     gsize=`seqkit stat -T result/metawrap_bins/hybird/${ref} | sed '1d' |cut -f 5`
 
     cd $OUTPUT_DIR
