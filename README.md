@@ -69,7 +69,7 @@ mCaller v0.3
 
 Nanodisco v1.0.0
 
-
+These software could be installed by conda.
 
 
 ## Structure of this repository
