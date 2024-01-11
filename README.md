@@ -4,7 +4,8 @@
 This pipeline was used for raw sequence quailty control, metagenome assembly, binning of metagenome-assembled genomes (MAGs), detection of structural variations and and dynamic methylomes based on the NGS and nanopore sequencing data.
 
 This pipeline was described in the following publication:
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Short- and long-read metagenomics expand individualized structural variations in gut microbiomes
+https://www.nature.com/articles/s41467-022-30857-9
 
 ONT and Illumina sequencing data generated from this study is deposited at National Microbiology Data Center (https://nmdc.cn/) with accession number of NMDC10017965.
 
